@@ -1,0 +1,415 @@
+import java.io.*;
+import java.util.*;
+class customer
+{
+    String name,acc,dob;
+    int pin,bal=0,no1=no;
+    static int no=0;
+    customer()
+    {
+        Scanner ip=new Scanner(System.in);
+        System.out.print("Enter your name:");
+        name=ip.nextLine();
+        System.out.print("Enter Date of birth(ddmmyyyy):");
+        dob=ip.nextLine();
+        acc="54321"+(no);
+        bal=0;
+        while(true)
+        {
+            int x;
+            while(true)
+            {
+                System.out.print("Enter your PIN(4 digit number):");
+                x=ip.nextInt();
+                if(x<=9999&x>=1000)
+                break;
+                else
+                System.out.println("Password should be 4 digits");
+            }
+            System.out.print("Re-enter your PIN:");
+            int x1=ip.nextInt();
+            if(x==x1)
+            {
+                System.out.println("PIN set succesfully\n");
+                pin=x;
+                break;
+            }
+            else
+            {
+                System.out.println( "Entered pin doesn't match");
+            }
+        }
+        no++;
+    }
+    void display()
+    {
+        System.out.println("Name:"+name);
+        System.out.println("Date Of Birth:"+dob);
+        System.out.println("Account number:"+acc);   
+        System.out.println("Balence:"+bal);
+    }
+    void upName()
+    {
+        Scanner ip=new Scanner(System.in);
+        System.out.print("Enter Your PIN:");
+        int k=ip.nextInt();
+        if(k==pin)
+        {
+            System.out.println("Your PIN is correct");
+            System.out.print("Enter the Name to be updated:");
+            name=ip.next();
+            System.out.println("Your Name Updated Succesfully");
+        }
+        else
+        System.out.println("Your PIN is Incorrect");
+    }
+    void upDOB()
+    {
+        Scanner ip=new Scanner(System.in);
+        System.out.print("Enter Your PIN:");
+        int k=ip.nextInt();
+        if(k==pin)
+        {
+            System.out.println("Your PIN is correct");
+            System.out.print("Enter the Date Of Birth to be updated:");
+            dob=ip.next();
+            System.out.println("Your Date Of Birth Updated Succesfully");
+        }
+        else
+        System.out.println("Your PIN is Incorrect");
+    }
+    void upPIN()
+    {
+        Scanner ip=new Scanner(System.in);
+        System.out.print("Enter Your PIN:");
+        int k=ip.nextInt();
+        if(k==pin)
+        {
+            System.out.println("Your PIN is correct");
+            while(true)
+            {
+                int x;
+                while(true)
+                {
+                    System.out.print("Enter your NEW PIN(4 digit number):");
+                    x=ip.nextInt();
+                    if(x<=9999&x>=1000)
+                    break;
+                    else
+                    System.out.println("Password should be 4 digits");
+                }
+                System.out.print("Re-enter your PIN:");
+                int x1=ip.nextInt();
+                if(x==x1)
+                {
+                    System.out.println("PIN updated succesfully\n");
+                    pin=x;
+                    break;
+                }
+                else
+                {
+                    System.out.println( "Entered pin doesn't match");
+                }
+            }
+        }
+        else
+        System.out.println("Your PIN is Incorrect");
+    }
+}
+public class ATM 
+{
+    public static void main(String args[])
+    {
+        Scanner ip=new Scanner(System.in);
+        System.out.println("Wecome to Bank Of VIT");
+        customer cus[]=new customer[20];
+        while(true)
+        {
+            int ch;
+            System.out.println("\n1:Admin Mode\n2:User Mode\n3:Exit");
+            ch=ip.nextInt();
+            if(ch==1)
+            {
+                System.out.print("Enter Admin password:");
+                int pwd=ip.nextInt();
+                if(pwd==9704)
+                {
+                    while(true)
+                    {
+                        System.out.println("\n1:Create account\n2:Delete Account\n3:Update Detalis\n4:Display Details\n5:Back Menu");
+                        int ch1=ip.nextInt();
+                        if(ch1==1)
+                        {
+                            cus[customer.no]=new customer();
+                            System.out.println("Your account number is "+cus[customer.no-1].acc);
+                            System.out.println("Account succesfully created");
+                            break;
+                        }
+                        else if(ch1==2)
+                        {
+                            while(true)
+                            {
+                                System.out.print("Enter the account number to be deleted:");
+                                String k=ip.next();
+                                if(k.length()>=6)
+                                {
+                                    String s=k.substring(5);
+                                    int k1=Integer.parseInt(s);
+                                    if(k1<=customer.no)
+                                    {
+                                        if(cus[k1].acc!="0000000")
+                                        {
+                                            System.out.print("Enter Your PIN:");
+                                            int k12=ip.nextInt();
+                                            if(cus[k1].pin==k12)
+                                            {
+                                                cus[k1].acc="0000000";
+                                                System.out.println("Account deleted succesfully");
+                                                break;
+                                            }
+                                            else
+                                            System.out.println("You Entered Wrong PIN");
+                                        }
+                                        else
+                                        System.out.println("Account already deleted");
+                                    }
+                                    else
+                                    {
+                                        System.out.println("Account number not found\nEnter the deatils again");
+                                    }
+                                }
+                                else
+                                {
+                                    System.out.println("Account number not found\nEnter the deatils again");
+                                }
+                            }
+                            break;
+                        }
+                        else if(ch1==3)
+                        {
+                            System.out.print("Enter your Account Number:");
+                            String k=ip.next();
+                            if(k.length()>=6)
+                            {
+                                String s=k.substring(5);
+                                int k1=Integer.parseInt(s);
+                                if(k1<=customer.no)
+                                {
+                                    System.out.println("Your Bank Details");
+                                    cus[k1].display();
+                                    System.out.println("\nWhich of the below you want to update\n1:Name\n2:Date Of Birth\n3:PIN");
+                                    int ch2=ip.nextInt();
+                                    if(ch2==1)
+                                    {
+                                        cus[k1].upName();
+                                    }
+                                    else if(ch2==2)
+                                    {
+                                        cus[k1].upDOB();
+                                    }
+                                    else if(ch2==3)
+                                    {
+                                        cus[k1].upPIN();
+                                    }
+                                    else
+                                    {
+                                        System.out.println("!!!INVALID INPUT!!!");
+                                    }
+                                }
+                                else
+                                {
+                                    System.out.println("Account number not found\n");
+                                }
+                            }
+                            else
+                            {
+                                System.out.println("Account number not found\n");
+                            }
+                            break;
+                        }
+                        else if(ch1==4)
+                        {
+                            System.out.print("Enter your Account Number:");
+                            String k=ip.next();
+                            if(k.length()>=6)
+                            {
+                                String s=k.substring(5);
+                                int k1=Integer.parseInt(s);
+                                if(k1<=customer.no)
+                                {
+                                    if(cus[k1].acc!="0000000")
+                                    {
+                                        System.out.print("Enter Your PIN:");
+                                        int k12=ip.nextInt();
+                                        if(k12==cus[k1].pin)
+                                        {
+                                            System.out.println("Your Bank Details");
+                                            cus[k1].display();
+                                        }
+                                        else
+                                        System.out.println("Entered Wrong PIN");
+                                    }
+                                    else
+                                    System.out.println("This Account has been deleted");
+                                }
+                                else
+                                {
+                                    System.out.println("Account number not found\n");
+                                }
+                            }
+                            else
+                            {
+                                System.out.println("Account number not found\n");
+                            }
+                            break;
+                        }
+                        else if(ch1==5)
+                        break;
+                        else
+                        System.out.println("!!!INVALID INPUT!!!\nEnter again");
+                    }
+                }
+                else
+                {
+                    System.out.println("Entered password is wrong\n");
+                }
+
+            }
+            else if(ch==2)
+            {
+                while(true)
+                {
+                    System.out.println("\n1:Withdraw\n2:Deposit\n3:Check Balence\n4:Back Menu");
+                    int ch1=ip.nextInt();
+                    if(ch1==1)
+                    {
+                        System.out.print("Enter Account Number:");
+                        String k=ip.next();
+                        if(k.length()>=6)
+                        {
+                            String s=k.substring(5);
+                            int k1=Integer.parseInt(s);
+                            if(k1<=customer.no)
+                            {
+                                if(cus[k1].acc!="0000000")
+                                {
+                                    System.out.print("Enter Your PIN:");
+                                    int k12=ip.nextInt();
+                                    if(cus[k1].pin==k12)
+                                    {
+                                        System.out.print("Enter the amount to be withdrawed:");
+                                        int m=ip.nextInt();
+                                        if(cus[k1].bal<m)
+                                        {
+                                            System.out.println("Your Account doesnt have sufficent balence\n");
+                                        }
+                                        else
+                                        {
+                                            cus[k1].bal=cus[k1].bal-m;
+                                            System.out.println("Amount succesfully withdrawed");
+                                        }
+                                        break;
+                                    }
+                                    else
+                                    System.out.println("You Entered Wrong PIN");
+                                }
+                                else
+                                System.out.println("Account was deleted");
+                            }
+                            else
+                            {
+                                System.out.println("Account number not found");
+                            }
+                        }
+                        else
+                        {
+                            System.out.println("Account number not found\nEnter the deatils again");
+                        }
+
+                    }
+                    else if(ch1==2)
+                    {
+                        System.out.print("Enter Account Number:");
+                        String k=ip.next();
+                        if(k.length()>=6)
+                        {
+                            String s=k.substring(5);
+                            int k1=Integer.parseInt(s);
+                            if(k1<=customer.no)
+                            {
+                                if(cus[k1].acc!="0000000")
+                                {
+                                    System.out.print("Enter Your PIN:");
+                                    int k12=ip.nextInt();
+                                    if(cus[k1].pin==k12)
+                                    {
+                                        System.out.print("Enter the amount to be deposited:");
+                                        int m=ip.nextInt();
+                                        cus[k1].bal=cus[k1].bal+m;
+                                        System.out.println("Amount succesfully deposited");
+                                        break;
+                                    }
+                                    else
+                                    System.out.println("You Entered Wrong PIN");
+                                }
+                                else
+                                System.out.println("Account was deleted");
+                            }
+                            else
+                            {
+                                System.out.println("Account number not found");
+                            }
+                        }
+                        else
+                        {
+                            System.out.println("Account number not found\nEnter the deatils again");
+                        }
+                    }
+                    else if(ch1==3)
+                    {
+                        System.out.print("Enter Account Number:");
+                        String k=ip.next();
+                        if(k.length()>=6)
+                        {
+                            String s=k.substring(5);
+                            int k1=Integer.parseInt(s);
+                            if(k1<=customer.no)
+                            {
+                                if(cus[k1].acc!="0000000")
+                                {
+                                    System.out.print("Enter Your PIN:");
+                                    int k12=ip.nextInt();
+                                    if(cus[k1].pin==k12)
+                                    {
+                                        System.out.println("Your Balence is $"+cus[k1].bal);
+                                        break;
+                                    }
+                                    else
+                                    System.out.println("You Entered Wrong PIN");
+                                }
+                                else
+                                System.out.println("Account was deleted");
+                            }
+                            else
+                            {
+                                System.out.println("Account number not found");
+                            }
+                        }
+                        else
+                        {
+                            System.out.println("Account number not found\nEnter the deatils again");
+                        }
+                    }
+                    else if(ch1==4)
+                    break;
+                    else
+                    System.out.println("!!!INVALID INPUT!!!\nEnter again");
+                }
+            }
+            else if(ch==3)
+            break;
+            else
+            System.out.println("!!!Invalid Input!!!\nEnter Again \n\n");
+        }
+    }    
+}
